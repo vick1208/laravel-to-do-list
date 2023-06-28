@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
+use function PHPUnit\Framework\assertFalse;
 use function PHPUnit\Framework\assertTrue;
 
 class UserServiceTest extends TestCase
@@ -24,11 +25,11 @@ class UserServiceTest extends TestCase
     }
     public function testLoginUserNotFound()
     {
-        self::assertFalse($this->userService->login("kunt", "kunt"));
+        assertFalse($this->userService->login("kunt", "kunt"));
     }
 
     public function testLoginWrongPassword()
     {
-        self::assertFalse($this->userService->login("abc", "salah"));
+        assertFalse($this->userService->login("abc", "salah"));
     }
 }
