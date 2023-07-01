@@ -42,7 +42,9 @@ class UserController extends Controller
                 "error" => "User or password is incorrect."
             ]);
     }
-    public function goLogout(): void
+    public function goLogout(Request $request): RedirectResponse
     {
+        $request->session()->forget("user");
+        return redirect("/");
     }
 }

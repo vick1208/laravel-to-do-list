@@ -10,11 +10,19 @@ use function PHPUnit\Framework\assertTrue;
 
 class UserControllerTest extends TestCase
 {
-    
+
     public function testLoginPage()
     {
         $this->get('/login')
             ->assertSeeText("Login");
+    }
+
+    public function testLoginPageForMember()
+    {
+        $this->withSession([
+            "user" => "abc"
+        ])->get('/login')
+            ->assertRedirect("/");
     }
 
     public function testLoginSuccess()
@@ -23,8 +31,19 @@ class UserControllerTest extends TestCase
             "user" => "abc",
             "password" => "sosial"
         ])->assertRedirect("/")
-        ->assertSessionHas("user","abc");
+            ->assertSessionHas("user", "abc");
     }
+
+    public function testLoginForUserAlreadyLogin()
+    {
+        $this->withSession([
+            "user" => "abc"
+        ])->post('/login', [
+            "user" => "abc",
+            "password" => "sosial"
+        ])->assertRedirect("/");
+    }
+
     public function testLoginValidationError()
     {
         $this->post("/login", [])
@@ -37,5 +56,19 @@ class UserControllerTest extends TestCase
             'user' => "wrong",
             "password" => "wrong"
         ])->assertSeeText("User or password is incorrect");
+    }
+
+    public function testLogout()
+    {
+        $this->withSession([
+            "user" => "abc"
+        ])->post('/logout')
+            ->assertRedirect("/")
+            ->assertSessionMissing("user");
+    }
+    public function testGuestLogout()
+    {
+        $this->post('/logout')
+            ->assertRedirect("/");
     }
 }
