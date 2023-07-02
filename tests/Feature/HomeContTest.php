@@ -10,12 +10,12 @@ class HomeContTest extends TestCase
 {
     public function testGuest()
     {
-        $this->get("/")
+        $this->get("/main")
             ->assertRedirect("/login");
     }
     public function testMember()
     {
         $this->withSession(["user" => "abc"])
-            ->get("/")->assertRedirect("/todolist");
+            ->get("/main")->assertRedirect("/todolist");
     }
 }
