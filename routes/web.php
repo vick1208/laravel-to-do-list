@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::view("/","welcome");
 
-Route::get('/main', [HomeController::class,"home"]);
+Route::get('/home', [HomeController::class,"home"]);
 
 Route::view('/template', "template");
 
