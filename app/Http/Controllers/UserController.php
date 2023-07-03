@@ -35,7 +35,7 @@ class UserController extends Controller
 
         if ($this->userService->login($user,$password)) {
             $request->session()->put("user",$user);
-            return redirect("/");
+            return redirect("/home");
         }
         return response()->view("user.login",[
                 "title" => "Login",
@@ -45,6 +45,6 @@ class UserController extends Controller
     public function goLogout(Request $request): RedirectResponse
     {
         $request->session()->forget("user");
-        return redirect("/");
+        return redirect("/home");
     }
 }

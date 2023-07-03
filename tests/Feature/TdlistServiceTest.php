@@ -58,8 +58,9 @@ class TdlistServiceTest extends TestCase
     {
         $this->todolistService->saveTodo("1", "Eko");
         $this->todolistService->saveTodo("2", "Kurniawan");
+        $this->todolistService->saveTodo("3", "Rudi");
 
-        assertEquals(2, sizeof($this->todolistService->getTodo()));
+        assertEquals(3, sizeof($this->todolistService->getTodo()));
 
         $this->todolistService->delTodo("3");
 
